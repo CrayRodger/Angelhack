@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coath</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/main.css">
+
+
+</head>
+
+<body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      <a class="navbar-brand" href="#">coac<i class="fa fa-h-square"></i></a>
+      </div>
+
+      <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#">История тренеровок</a></li>
+                <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+
+    </div>
+  </div>
+
+
+
+
+  <div id="headerwrap">
+
+     <div class="container">
+       <div class="row centered">
+         <div class="col-lg-8 col-lg-offset-2">
+
+           Hello
+
+           <div id="tmpImage"> picture</div>
+           <div id="image_id"> ID</div>
+           <div id="MyStatus">Status </div>
+           <div id="mage_id_0">Status0 </div>
+
+
+<img src="nothing.jpg" id="image" name="image"/>
+        </div>
+       </div>
+     </div>
+
+
+     <!-- Buttons-->
+<div class="container">
+  <div class="row centered">
+
+<span id = "buttons">
+    <input type = "button"  id = "up" name="up" value="up"/>
+    <input type = "button"  id = "down" name="down" value="down"/>
+    <input type = "button"  id = "start" name="down" value="start"/>
+</span>
+
+    </div>
+</div>
+
+</div>
+
+
+<script>
+var status = nahui
+
+document.getElementById('MyStatus').innerHTML = status
+
+</script>
+
+
+
+<!--Picture -->
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+  <script src="js/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+<script>
+var image = document.createElement('img');
+var image_cord  = 0
+var image_cord1 = ""
+image_cord1 = 'R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7'
+
+$(function() {
+  setInterval(function() {
+    $.ajax({
+      type: 'GET',
+      url: 'http://13.74.159.12:5005/get_image_data',
+      data: '',
+      success: function(data){
+     image_cord = data.data[0]['image']
+     image_cord = image_cord.substr(2);
+     image_cord = image_cord.substring(0, image_cord.length - 1);
+
+     image_id = data.data[0]['image_id']
+
+     document.getElementById('image_id').innerHTML = image_id
+    //document.getElementById('picture').innerHTML = '<img src="data:image/gif;base64,' + 'R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7"' >
+
+    document.getElementById('image').src = "data:image/gif;base64," + image_cord;
+      }
+    });
+  }, 200)
+
+});
+
+//var buttons:
+
+//UP
+$('#up').click(function () {
+  var image_status = $('#up').value
+  var status =
+    { "image_id": image_id, "image_descr": image_status }
+
+  $.ajax({
+      type: 'POST',
+      url: "http://13.74.159.12:5005/post_image_descr",
+      data: JSON.stringify(status),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(data){alert(data);},
+      failure: function(errMsg) {
+          alert(errMsg);
+      }
+  });
+    // change variables here
+});
+
+
+//DOWN
+$('#down').click(function () {
+  var status =
+    { "image_id": image_id, "image_descr": "down" }
+
+  $.ajax({
+      type: 'POST',
+      url: "http://13.74.159.12:5005/post_image_descr",
+      data: JSON.stringify(status),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(data){alert(data);},
+      failure: function(errMsg) {
+          alert(errMsg);
+      }
+  });
+    // change variables here
+});
+
+//START
+$('#start').click(function () {
+  var status =
+    { "image_id": image_id, "image_descr": "start" }
+
+  $.ajax({
+      type: 'POST',
+      url: "http://13.74.159.12:5005/post_image_descr",
+      data: JSON.stringify(status),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(data){alert(data);},
+      failure: function(errMsg) {
+          alert(errMsg);
+      }
+  });
+    // change variables here
+});
+
+
+//Create JSON
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
